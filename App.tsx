@@ -15,7 +15,7 @@ import {
   Download
 } from 'lucide-react';
 
-// --- Components ---
+// --- Sub-components ---
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,11 +35,10 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'}`}>
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
         <a href="#" className="text-xl font-bold tracking-tight">seonggyun.</a>
         
-        {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a key={link.name} href={link.href} className="text-sm font-medium hover:text-zinc-500 transition-colors">
@@ -51,13 +50,11 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Toggle */}
         <button className="md:hidden z-50" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu">
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 bg-black text-white p-8 flex flex-col justify-center gap-8 z-40 transition-transform duration-500 md:hidden ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}>
         <div className="flex flex-col gap-6 text-4xl font-bold">
           {navLinks.map((link) => (
@@ -67,8 +64,8 @@ const Navbar = () => {
           ))}
         </div>
         <div className="mt-12 space-y-4 border-t border-zinc-800 pt-8">
-          <div className="flex items-center gap-3 text-zinc-400"><Mail size={18} /> sg.kim@skku.edu</div>
-          <div className="flex items-center gap-3 text-zinc-400"><Linkedin size={18} /> linkedin.com/in/sgkim-skku</div>
+          <div className="flex items-center gap-3 text-zinc-400 font-medium"><Mail size={18} /> sg.kim@skku.edu</div>
+          <div className="flex items-center gap-3 text-zinc-400 font-medium"><Linkedin size={18} /> linkedin.com/in/sgkim-skku</div>
         </div>
       </div>
     </nav>
@@ -302,4 +299,82 @@ export default function App() {
         </div>
       </section>
 
-      {/*
+      {/* Skills */}
+      <section className="py-24 px-6 bg-[#f5f5f7]">
+        <div className="max-w-6xl mx-auto">
+          <SectionHeader subtitle="Technical Skills" title="Expertise & Tools" />
+          <div className="grid md:grid-cols-3 gap-8">
+            <SkillCard 
+              icon={Cpu}
+              title="Design & Simulation" 
+              items={["Synopsys TCAD", "Cadence Virtuoso", "MATLAB", "SPICE"]} 
+            />
+            <SkillCard 
+              icon={Microscope}
+              title="Characterization" 
+              items={["SEM", "AFM", "XRD", "HP4156 Analyzer"]} 
+            />
+            <SkillCard 
+              icon={Zap}
+              title="Fabrication" 
+              items={["Photolithography", "E-beam Evaporator", "ALD Certification"]} 
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Footer / Contact */}
+      <footer className="py-24 px-6 bg-black text-white rounded-t-[4rem]">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-20">
+            <div>
+              <SectionHeader light subtitle="Contact Info" title="Building the next generation of semiconductors." />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <ContactItem icon={Mail} label="Email" value="sg.kim@skku.edu" href="mailto:sg.kim@skku.edu" />
+                <ContactItem icon={Phone} label="Phone" value="010-9876-5432" />
+                <ContactItem icon={Linkedin} label="LinkedIn" value="sgkim-skku" href="https://linkedin.com/in/sgkim-skku" />
+                <ContactItem icon={MapPin} label="Location" value="성균관대 수원 캠퍼스" />
+              </div>
+
+              <div className="mt-16 pt-8 border-t border-zinc-800">
+                <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs mb-4">References</p>
+                <div className="space-y-4">
+                  <div>
+                    <p className="font-bold text-lg">이지능 교수</p>
+                    <p className="text-zinc-400 text-sm">성균관대학교 반도체융합공학과 <span className="mx-2">|</span> jn.lee@skku.edu</p>
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg">최삼성 박사</p>
+                    <p className="text-zinc-400 text-sm">삼성전자 반도체연구소 수석연구원 <span className="mx-2">|</span> s.choi@samsung.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-between items-start lg:items-end">
+               <div className="w-full">
+                 <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs mb-6">Recent Awards</p>
+                 <div className="space-y-6 w-full">
+                    {[
+                      { title: "SKKU 우수논문상", year: "2024" },
+                      { title: "삼성전자 산학 장학생", year: "2023" },
+                      { title: "설계 경진대회 장려상", year: "2021" }
+                    ].map((award, i) => (
+                      <div key={i} className="flex justify-between items-center border-b border-zinc-800 pb-4">
+                        <span className="text-lg font-bold">{award.title}</span>
+                        <span className="text-zinc-400 font-medium">{award.year}</span>
+                      </div>
+                    ))}
+                 </div>
+               </div>
+               <div className="mt-20 flex flex-col items-start lg:items-end gap-2 text-right">
+                  <p className="text-zinc-500 text-sm font-medium">© 2025 Seong-gyun Kim.</p>
+                  <p className="text-zinc-700 text-xs">Modern CV Experience</p>
+               </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
